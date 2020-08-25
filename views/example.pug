@@ -2,8 +2,10 @@ include partials/header.pug
 
 body
   h1= title
-  p Welcome to #{title}
+  p Hey there.
   if rand_number
     p It looks like you added #{rand_number} to the URL.
+  if requestTime
+    p Also, you requested this site at #{requestTime}
 
 include partials/footer.pug
