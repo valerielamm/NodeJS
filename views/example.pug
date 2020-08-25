@@ -3,5 +3,7 @@ include partials/header.pug
 body
   h1= title
   p Welcome to #{title}
+  if rand_number
+    p It looks like you added #{rand_number} to the URL.
 
 include partials/footer.pug
