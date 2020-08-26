@@ -7,5 +7,12 @@ body
     p It looks like you added #{rand_number} to the URL.
   if requestTime
     p Also, you requested this site at #{requestTime}
+  if articles
+    each article in articles
+      h2 #{article.title}
+      p 
+        strong Author: #{article.author}
+      p #{article.body}
+      br
 
 include partials/footer.pug

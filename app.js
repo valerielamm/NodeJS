@@ -5,7 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/nodekd');
+mongoose.connect('mongodb://localhost/nodekb', {
+    useNewUrlParser: true
+});
 var db = mongoose.connection;
 
 // Check for connection
