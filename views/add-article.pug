@@ -1,0 +1,16 @@
+include partials/header.pug
+
+block content
+  h1 #{h1_title}
+  form(method='POST', action='add-article')
+    #form-group
+      label Title:
+      input.form-control(name='title', type='text')
+    #form-group
+      label Author:
+      input.form-control(name='author', type='text')
+    #form-group
+      label Body:
+      textarea.form-control(name='body')
+    input.btn.btn-primary(type='submit',value='submit')
+

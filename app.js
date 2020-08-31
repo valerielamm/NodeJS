@@ -4,7 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const bodyParser = require('body-parser');
 
+// Connect Mongoose
 mongoose.connect('mongodb://localhost/nodekb', {
     useNewUrlParser: true
 });
@@ -20,8 +24,7 @@ db.on('error', function(err){
   console.log(err); 
 });
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// Middleware
 var myLogger = function (req, res, next) {
   console.log('LOGGED')
   next()
@@ -33,20 +36,25 @@ var requestTime = function (req, res, next) {
 
 var app = express();
 
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(requestTime); //middleware example with modified formatting
-app.use(myLogger); //middleware example from express documentation
+// Body parser middleware
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false}))
+// parse application/json
+app.use(bodyParser.json())
+
+app.use(requestTime); // Middleware example with modified formatting
+app.use(myLogger); // Middleware example from express documentation
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // Static public assets
 
-
-
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
